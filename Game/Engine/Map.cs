@@ -14,8 +14,6 @@ namespace MarioGame.Engine
         private int lastXPosition;
 
         List<SpriteGameObject> spriteGameObjects;
-        List<ObstacleObject> jsonObstacleObjects;
-        List<PointObject> jsonPointObjects;  
 
         public Map()
         {
@@ -86,24 +84,24 @@ namespace MarioGame.Engine
 
         public void TexturesToStrings()
         {
-            jsonObstacleObjects = new List<ObstacleObject>();
-            jsonPointObjects =new List<PointObject>();
-            foreach (SpriteGameObject o in spriteGameObjects)
-            {
-                o.TextureName = o.Texture.Name;
-                o.Texture = null;
-            }
-            while (0 < SpriteGameObjects.Count)
-            {
-                if (spriteGameObjects[0].GetType() == typeof (ObstacleObject))
-                {
-                    jsonObstacleObjects.Add((ObstacleObject)spriteGameObjects[0]);
-                }
-                if (spriteGameObjects[0].GetType() == typeof(PointObject)) {
-                    jsonPointObjects.Add((PointObject)spriteGameObjects[0]);
-                }
-                spriteGameObjects.RemoveAt(0);
-            }
+            //jsonObstacleObjects = new List<ObstacleObject>();
+            //jsonPointObjects =new List<PointObject>();
+            //foreach (SpriteGameObject o in spriteGameObjects)
+            //{
+            //    o.TextureName = o.Texture.Name;
+            //    o.Texture = null;
+            //}
+            //while (0 < SpriteGameObjects.Count)
+            //{
+            //    if (spriteGameObjects[0].GetType() == typeof (ObstacleObject))
+            //    {
+            //        jsonObstacleObjects.Add((ObstacleObject)spriteGameObjects[0]);
+            //    }
+            //    if (spriteGameObjects[0].GetType() == typeof(PointObject)) {
+            //        jsonPointObjects.Add((PointObject)spriteGameObjects[0]);
+            //    }
+            //    spriteGameObjects.RemoveAt(0);
+            //}
         }
 
         public int LocationModifier {
@@ -111,26 +109,10 @@ namespace MarioGame.Engine
             set { locationModifier = value; }
         }
 
-        public List<ObstacleObject> JsonObstacleObjects {
-            get { return jsonObstacleObjects; }
-            set { jsonObstacleObjects = value; }
-        }
-
-        public List<PointObject> JsonPointObjects {
-            get { return jsonPointObjects; }
-            set { jsonPointObjects = value; }
-        }
+   
 
         public void StringsToTextures()
         {
-            while (0 < jsonObstacleObjects.Count) {
-                spriteGameObjects.Add(jsonObstacleObjects[0]);
-                jsonObstacleObjects.RemoveAt(0);
-            }
-            while (0 < jsonPointObjects.Count) {
-                spriteGameObjects.Add(jsonPointObjects[0]);
-                jsonPointObjects.RemoveAt(0);
-            }
             SortSprites();
             foreach (SpriteGameObject o in spriteGameObjects)
             {

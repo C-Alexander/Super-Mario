@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace MarioGame.Engine
 {  
@@ -20,7 +22,8 @@ namespace MarioGame.Engine
             {
             //    FileStream fileStream = file.OpenRead();
           //      string jsonMap = fileStream.ToString();
-            StreamReader reader = new StreamReader(@contentDirectory + file.ToString());
+          MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(@contentDirectory + file.ToString()));
+            StreamReader reader = new StreamReader(stream); //wow this is new. since when wont it accept a string?
             string jsonMap = reader.ReadToEnd();
             mapList.Add(JsonConvert.DeserializeObject<Map>(jsonMap));
                     //add them to a list so we can convert from and to them without worrying about future problems (can just hardcode any major changes there...)

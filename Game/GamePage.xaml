@@ -5,8 +5,17 @@
     xmlns:local="using:MarioGame"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Width="906.626">
 
-  <SwapChainPanel x:Name="swapChainPanel" />
+    <SwapChainPanel x:Name="swapChainPanel" Margin="453,214,-0.333,0" >
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="316" Margin="661,249,0,0" VerticalAlignment="Top" Width="236"/>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="192" Margin="-276,146,0,0" VerticalAlignment="Top" Width="100">
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+        </ListView>
+    </SwapChainPanel>
 
 </Page>

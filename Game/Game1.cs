@@ -1,20 +1,31 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Lidgren.Network;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace MarioGame
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private NetClient client;
 
         public Game1()
         {
+            NetPeerConfiguration config = new NetPeerConfiguration("Client");
+            config.AcceptIncomingConnections = true;
+            client = new NetClient(config);
+            client.Start();
+            client.DiscoverLocalPeers(9001);
+            Debug.WriteLine(client.Statistics);
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -37,7 +48,7 @@ namespace MarioGame
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(Microsoft.Xna.Framework.Graphics.GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -69,7 +80,7 @@ namespace MarioGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            Microsoft.Xna.Framework.Graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
 

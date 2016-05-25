@@ -48,8 +48,7 @@ namespace MarioGame.Engine
 
         public virtual void Update(GameTime gameTime)
         {
-            position += (Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds) + 
-                new Vector2(GameSettings.SpeedPerSecond * (Convert.ToInt32(GameSettings.GameTime.TotalGameTime.TotalSeconds)), 0);
+            position += (Velocity*(float) gameTime.ElapsedGameTime.TotalSeconds);
             if (rotationSpeed != 0) rotation += rotationSpeed/100;
         }
 

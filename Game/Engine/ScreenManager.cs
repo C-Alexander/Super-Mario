@@ -69,7 +69,7 @@ namespace MarioGame.Engine
 
         public static void Update(GameTime gameTime)
         {
-            if (!GameSettings.EvActivated && firstUnactivated) { currentScreen.OnScreenActivate();
+            if (!GameSettings.Debug && firstUnactivated) { currentScreen.OnScreenActivate();
                 firstUnactivated = false;
             }
             currentScreen.Update(gameTime);

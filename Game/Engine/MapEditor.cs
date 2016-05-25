@@ -29,7 +29,7 @@ namespace MarioGame.Engine
         public override void LoadContent(ContentManager Content)
         {
             base.LoadContent(Content);
-            background = Content.Load<Texture2D>("welsh_corgi_dog_glare_face_beautiful_72291_1920x1080");
+         //   background = Content.Load<Texture2D>("welsh_corgi_dog_glare_face_beautiful_72291_1920x1080");
             init();
         }
 
@@ -68,7 +68,6 @@ namespace MarioGame.Engine
         {
             base.Update(gameTime);
             checkControls();
-            Console.WriteLine(objects.Count);
         }
 
         private void checkControls()
@@ -128,22 +127,12 @@ namespace MarioGame.Engine
 
         private void createObject()
         {
-            if (objects[currentObject].Name == "GameObjects/punt_design")
-            {
-                spriteGameObjects.Add(new PointObject(objects[currentObject], Mouse.GetState().Position.ToVector2(),
-                    new Vector2(0, 0)));
-            }
-            else
-            {
-                spriteGameObjects.Add(new ObstacleObject(objects[currentObject], Mouse.GetState().Position.ToVector2(),
-                    new Vector2(0, 0)));
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(background, new Vector2(0, 0));
+          //  spriteBatch.Draw(background, Vector2.Zero);
             spriteBatch.Draw(objects[currentObject], Mouse.GetState().Position.ToVector2());
             foreach (SpriteGameObject o in spriteGameObjects)
             {

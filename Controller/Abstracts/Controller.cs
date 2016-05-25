@@ -20,9 +20,9 @@ namespace Controller
             
         }
 
-        Vector2 Jump()
+         void Jump()
         {
-            return new Vector2(0, 50);
+            new Vector2(0, 50);
         }
 
     }
