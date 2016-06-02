@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using Lidgren.Network;
+//using Lidgren.Network;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,16 +13,18 @@ namespace MarioGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private NetClient client;
+        //private NetClient client;
 
         public Game1()
         {
+            /*
             NetPeerConfiguration config = new NetPeerConfiguration("Client");
             config.AcceptIncomingConnections = true;
             client = new NetClient(config);
             client.Start();
             client.DiscoverLocalPeers(9001);
             Debug.WriteLine(client.Statistics);
+            */
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;

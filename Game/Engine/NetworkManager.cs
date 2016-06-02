@@ -20,7 +20,7 @@ namespace Game.Engine
             }
             if (!_socket.Connected)
             {
-                if (!_socket.)
+           //     if (!_socket.)
             }
         }
     }
