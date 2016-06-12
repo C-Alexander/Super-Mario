@@ -5,18 +5,20 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using ServerNetworkMessage;
 
 namespace Server
 {
-    class SocketHelper
+    static class SocketHelper
     {
-        TcpClient mscClient;
-        string mstrMessage;
-        string mstrResponse;
-        byte[] bytesSent;
-        NetworkMessage networkMessage;
-        String userId;
-        public void processMsg(TcpClient client, NetworkStream stream, byte[] bytesReceived)
+        static Dictionary<int, TcpClient> users = new Dictionary<int, TcpClient>();
+
+        static TcpClient mscClient;
+        static string mstrMessage;
+        static string mstrResponse;
+        static byte[] bytesSent;
+        static NetworkMessage networkMessage;
+        static public void processMsg(TcpClient client, NetworkStream stream, byte[] bytesReceived)
         {
             // Handle the message received and 
             // send a response back to the client.
@@ -33,10 +35,12 @@ namespace Server
             //Login
             if(networkMessage.Type == NetworkMessage.Types.Login)
             {
-                if(Login(networkMessage.UserId, networkMessage.UserPassword))
+                string session = Database.Login(networkMessage);
+                if (session != null)
                 {
-                    userId = networkMessage.UserId;
-                    mstrResponse = "User logged in";
+                    users.Add(networkMessage.UserId, client);
+                    NetworkMessage response = new NetworkMessage(session);
+                    mstrResponse = JsonConvert.SerializeObject(response);
                 } else
                 {
                     mstrResponse = "Unable to login";
@@ -44,9 +48,9 @@ namespace Server
             }
 
             //Submit
-            if(networkMessage.Type == NetworkMessage.Types.Submit && userId != null)
+            if(networkMessage.Type == NetworkMessage.Types.Submit && users.ContainsKey(networkMessage.UserId))
             {
-                if(Submit(userId, networkMessage.DllFile))
+                if(Submit())
                 {
                     mstrResponse = "File submitted";
                 } else
@@ -58,19 +62,23 @@ namespace Server
             bytesSent = Encoding.ASCII.GetBytes(mstrResponse);
             stream.Write(bytesSent, 0, bytesSent.Length);
         }
-        bool Login(string userId, string userPassword)
-        {
-            //Check login data with database and return true/false
-            return true;
-        }
-        bool Submit(string userId, byte[] dllFile)
+        static bool Submit()
         {
             /*
             Add submission data to database
             Place dll file in correct folder
             Return true false
             */
-            return true;
+            int fileID = Database.Submit(networkMessage);
+            if (fileID != 0)
+            {
+                /*
+                Decode dll file from networkMessage,
+                output it to server directory named %fileId%.dll then return true if above went succesful
+                */
+                return true;
+            }
+            return false;
         }
     }
 }

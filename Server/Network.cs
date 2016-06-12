@@ -42,8 +42,7 @@ namespace Server
                 byte[] bytes = new byte[256];
                 NetworkStream stream = tcpClient.GetStream();
                 stream.Read(bytes, 0, bytes.Length);
-                SocketHelper helper = new SocketHelper();
-                helper.processMsg(tcpClient, stream, bytes);
+                SocketHelper.processMsg(tcpClient, stream, bytes);
             }
         }
 

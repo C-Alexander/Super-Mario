@@ -4,18 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server
+namespace ServerNetworkMessage
 {
     class NetworkMessage
     {
         Types type;
-        string userId;
+        Users user;
+        string session;
+        int userId;
         string userPassword;
-        byte[] dllFile;
+        Submit submit = new Submit();
+
+        public NetworkMessage(string session)
+        {
+            this.session = session;
+        }
 
         public enum Types
         {
             Login, Submit
+        }
+        public enum Users
+        {
+            Student, Teacher
         }
         internal Types Type
         {
@@ -24,15 +35,27 @@ namespace Server
                 return type;
             }
         }
-
-        public string UserId
+        internal Users User
+        {
+            get
+            {
+                return user;
+            }
+        }
+        public string Session
+        {
+            get
+            {
+                return session;
+            }
+        }
+        public int UserId
         {
             get
             {
                 return userId;
             }
         }
-
         public string UserPassword
         {
             get
@@ -40,6 +63,17 @@ namespace Server
                 return userPassword;
             }
         }
+        public Submit Submit
+        {
+            get
+            {
+                return submit;
+            }
+        }
+    }
+    internal class Submit
+    {
+        byte[] dllFile;
 
         public byte[] DllFile
         {
